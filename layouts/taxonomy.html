@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="tags-page">
+  <div>
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{- $dek := .Description | default (index (or site.Params.tags dict) "dek") }}
+    {{- with $dek }}
+      <p class="page-dek">{{ . | markdownify }}</p>
+    {{- end }}
+  </div>
+
+  {{ partial "tag-index.html" (dict "page" . "selected" "") }}
+</div>
+{{ end }}

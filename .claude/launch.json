@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "hugo",
+      "runtimeExecutable": "hugo",
+      "runtimeArgs": ["server", "--port", "1316", "--buildDrafts=false"],
+      "port": 1316,
+      "autoPort": false
+    }
+  ]
+}

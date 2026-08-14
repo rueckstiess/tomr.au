@@ -1,0 +1,7 @@
+{{- with site.Params.social }}
+<nav class="link-row" aria-label="Elsewhere">
+  {{- range . }}
+    <a href="{{ trim .url " " | safeURL }}" target="_blank" rel="noopener noreferrer me">{{ .name }} ↗</a>
+  {{- end }}
+</nav>
+{{- end }}

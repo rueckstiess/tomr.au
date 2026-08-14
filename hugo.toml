@@ -1,104 +1,108 @@
 baseURL = 'https://tomr.au/'
 languageCode = 'en-us'
 title = "tomr.au"
-theme = 'typo'
-
 
 [taxonomies]
 tag = 'tags'
 
 [params]
-# Meta description
+# Used for <meta name="description"> and as the footer's left-hand line.
 description = "A messy cocktail of my random thoughts"
-# Appearance settings
-theme = 'auto'
-colorPalette = 'base16-ocean'
-hideHeader = false
+# Footer, right-hand side.
+colophon = "hugo · netlify"
+# Fallback when a visitor has never chosen a theme and expresses no
+# prefers-color-scheme preference.
+defaultTheme = "dark"
 
-# Color Palettes
-# default
-# catpuccin
-# gruvebox
-# eink
-# base16-default
-# base16-eighties
-# base16-ocean
-# base16-mocha
-# base16-cupcake
+# --- Home -------------------------------------------------------------------
+[params.home]
+# Shown in the header breadcrumb on the home page only.
+crumb = "thomas rückstieß"
+# The hero renders heroLines in the primary text colour, then heroDim muted.
+heroLines = ["Researcher, builder,", "thinker, hot tub"]
+heroDim = "philosopher."
+bio = ""
 
-# Intro on main page, content is markdown
-homeIntroTitle = 'Greetings.'
-homeIntroContent = """
-I am a researcher, builder, thinker, hot tub philosopher. I write about the topics that interest me, including AI, coding, science,
-philosophy, block chains and productivity. 
+# --- Posts ------------------------------------------------------------------
+[params.posts]
+dek = "My occasional musings."
 
-You can find me in the usual places:
-"""
+# --- Tags -------------------------------------------------------------------
+[params.tags]
+dek = "What I keep coming back to."
 
-# Collection to display on home
-homeCollectionTitle = 'Posts'
-homeCollection = 'posts'
+# --- About ------------------------------------------------------------------
+# Facts rail on /about. Set accent = true to render the value in the accent colour.
+[[params.about.facts]]
+label = "based in"
+value = "melbourne, au"
 
-# Lists parameters
-paginationSize = 100
-listSummaries = true
-listDateFormat = '2 Jan 2006'
+[[params.about.facts]]
+label = "phd"
+value = "tum, munich"
 
-# Breadcrumbs
-breadcrumbs = false
+[[params.about.facts]]
+label = "field"
+value = "machine learning"
 
-# Social icons
-[[params.social]]
-name = "linkedin"
-url = "https://www.linkedin.com/in/rueckstiess/"
+[[params.about.facts]]
+label = "status"
+value = "open to ideas"
+accent = true
 
-# [[params.social]]
-# name = "medium"
-# url = "https://medium.com/@user"
-
-[[params.social]]
-name = "x"
-url = "https://x.com/tomonezero"
-
-[[params.social]]
-name = "github"
-url = "https://github.com/rueckstiess"
-
-[[params.social]]
-name = "bluesky"
-url = "https://bsky.app/profile/tomonezero.bsky.social"
-
-# Main menu pages
+# --- Navigation -------------------------------------------------------------
 [[params.menu]]
 name = "home"
 url = "/"
 
 [[params.menu]]
 name = "posts"
-url = "/posts"
+url = "/posts/"
 
 [[params.menu]]
 name = "tags"
-url = "/tags"
+url = "/tags/"
 
 [[params.menu]]
 name = "about"
-url = "/about"
+url = "/about/"
 
-# Syntax highlight on code blocks
+# --- Social -----------------------------------------------------------------
+[[params.social]]
+name = "github"
+url = "https://github.com/rueckstiess"
+
+[[params.social]]
+name = "x"
+url = "https://x.com/tomonezero"
+
+[[params.social]]
+name = "linkedin"
+url = "https://www.linkedin.com/in/rueckstiess/"
+
+[[params.social]]
+name = "scholar"
+url = "https://scholar.google.com/citations?hl=en&user=dRIgADIAAAAJ"
+
+
+# --- Markup -----------------------------------------------------------------
 [markup]
 [markup.highlight]
-style = 'xcode'
+# Class-based output so a single build can serve both themes; the colour maps
+# live in assets/css/chroma.css.
+noClasses = false
+codeFences = true
+guessSyntax = false
+lineNos = false
+tabWidth = 2
 
-# Giscus comments
-[params.giscus]
-enable = false
-repo = "user/repo"
-repoid = "repoId"
-category = "General"
-categoryid = "categoryId"
-mapping = "pathname"
-theme = "preferred_color_scheme"
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 3
+ordered = false
+
+[markup.goldmark.renderer]
+unsafe = true
 
 [services]
   [services.googleAnalytics]

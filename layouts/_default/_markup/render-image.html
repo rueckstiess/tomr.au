@@ -1,0 +1,32 @@
+{{- /* Resolves page-relative images to page resources and turns URL fragments
+       into modifier classes. The site's posts rely on `#light` / `#dark` pairs
+       for theme-swapped diagrams and `#large` for full-bleed figures. */ -}}
+
+{{- $u := urls.Parse .Destination -}}
+{{- $url := $u.String -}}
+{{- $resource := false -}}
+
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with .PageInner.Resources.Get $path -}}
+    {{- $resource = . -}}
+  {{- else -}}
+    {{- with resources.Get $path }}{{ $resource = . }}{{ end -}}
+  {{- end -}}
+  {{- with $resource }}{{ $url = .RelPermalink }}{{ end -}}
+{{- end -}}
+
+{{- $classes := slice -}}
+{{- with $u.Fragment -}}
+  {{- range split . "#" -}}
+    {{- with . }}{{ $classes = $classes | append (printf "img-%s" .) }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+
+<figure{{ with $classes }} class="{{ delimit . " " }}"{{ end }}>
+  <img loading="lazy" decoding="async" src="{{ $url | safeURL }}" alt="{{ .Text }}"
+    {{- with $resource }}{{ if ne .MediaType.SubType "svg" }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}{{ end }}>
+  {{- with .Title }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+  {{- end }}
+</figure>

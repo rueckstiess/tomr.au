@@ -1,0 +1,16 @@
+{{- $css := slice
+  (resources.Get "css/fonts.css")
+  (resources.Get "css/tokens.css")
+  (resources.Get "css/base.css")
+  (resources.Get "css/chrome.css")
+  (resources.Get "css/prose.css")
+  (resources.Get "css/chroma.css")
+  (resources.Get "css/pages.css")
+-}}
+
+{{- $bundle := $css | resources.Concat "css/bundle.css" -}}
+{{- if hugo.IsProduction -}}
+  {{- $bundle = $bundle | minify | fingerprint -}}
+{{- end -}}
+
+<link rel="stylesheet" href="{{ $bundle.RelPermalink }}">

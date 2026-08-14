@@ -1,0 +1,88 @@
+{{ define "main" }}
+{{- /* Show the TOC only when there is enough structure for it to be useful.
+       Counting the rendered entries is the honest test — it accounts for the
+       startLevel/endLevel config rather than every heading in the document.
+       An explicit `toc: false` in front matter still wins. */ -}}
+{{- $toc := printf "%s" .TableOfContents | replaceRE `(?s)^\s*<nav id="TableOfContents">\s*(.*?)\s*</nav>\s*$` "$1" -}}
+{{- $showToc := ge (len (findRE `<a href="#` $toc)) 2 -}}
+{{- if isset .Params "toc" }}{{ $showToc = and $showToc .Params.toc }}{{ end -}}
+
+{{- $banner := .Resources.GetMatch "{banner,cover}.*" -}}
+
+<article class="post{{ if not $showToc }} post--no-toc{{ end }}">
+  <header class="post-head">
+    <div class="post-head-inner">
+      <div class="post-meta">
+        {{- with .Date }}
+          <time class="post-meta-date" datetime="{{ .Format "2006-01-02" }}">{{ .Format "2 Jan 2006" }}</time>
+          <span class="post-meta-sep" aria-hidden="true">—</span>
+        {{- end }}
+        <span class="post-meta-read">{{ .ReadingTime }} min read</span>
+      </div>
+
+      <h1 class="post-title">{{ .Title }}</h1>
+
+      {{- with .Params.summary }}
+        <p class="post-description">{{ . | markdownify }}</p>
+      {{- end }}
+
+      {{- with .Params.tags }}
+        <div class="post-tags">
+          {{- range . }}
+            {{- with site.GetPage (printf "/tags/%s" (urlize .)) }}
+              <a class="pill" href="{{ .RelPermalink }}">#{{ lower .LinkTitle }}</a>
+            {{- end }}
+          {{- end }}
+        </div>
+      {{- end }}
+    </div>
+  </header>
+
+  {{- with $banner }}
+    <div class="post-banner">
+      <div class="post-banner-inner">
+        {{- $img := .Fill "1280x600 Center" }}
+        <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="">
+      </div>
+    </div>
+  {{- end }}
+
+  <div class="post-body">
+    {{- if $showToc }}
+      <nav class="post-toc" data-toc aria-label="Table of contents">
+        <p class="post-toc-title">Contents</p>
+        {{ $toc | safeHTML }}
+      </nav>
+    {{- end }}
+
+    <div>
+      <div class="prose">
+        {{ .Content }}
+      </div>
+
+      <footer class="post-footer">
+        {{- $posts := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
+        {{- $next := "" -}}
+        {{- range $i, $p := $posts -}}
+          {{- if eq $p.RelPermalink $.RelPermalink -}}
+            {{- if lt (add $i 1) (len $posts) -}}
+              {{- $next = index $posts (add $i 1) -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end }}
+
+        {{- with $next }}
+          <div class="post-footer-next">
+            <span class="post-footer-label">Next</span>
+            <a class="post-footer-title" href="{{ .RelPermalink }}">{{ .Title }} →</a>
+          </div>
+        {{- else }}
+          <div class="post-footer-next"></div>
+        {{- end }}
+
+        <a class="post-footer-top" href="#main">↑ top</a>
+      </footer>
+    </div>
+  </div>
+</article>
+{{ end }}

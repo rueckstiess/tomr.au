@@ -12,12 +12,9 @@ I vibe-coded an in-memory graph database from scratch in TypeScript in 5 days wi
 
 You can find the project here: https://github.com/rueckstiess/cannonball-graph
 
-**Quick disclaimer**: this code is far from production-ready. It is not optimised for performance and there are likely bugs. Only a small subset of Cypher is supported currently. Dont' use this for anything serious.
+> **Quick disclaimer**: this code is far from production-ready. It is not optimised for performance and there are likely bugs. Only a small subset of Cypher is supported currently. Dont' use this for anything serious.
 
 This was an experiment to see how Claude Code, Copilot and LLMs can help developing a larger and more complex project.
-
-![Banner Image](./banner.jpg)
-
 
 ## Overview
 

@@ -1,0 +1,33 @@
+{{ define "main" }}
+{{- $portrait := .Resources.GetMatch "{thomas,portrait}.*" -}}
+
+<div class="about">
+  <div class="about-main">
+    <h1 class="page-title">{{ .Title }}</h1>
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+
+  <aside class="about-rail">
+    {{- with $portrait }}
+      {{- $img := .Fill "640x760 Center" }}
+      <img class="about-portrait" src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}"
+        alt="Portrait of {{ site.Params.home.crumb | default site.Title }}">
+    {{- end }}
+
+    {{- with site.Params.about.facts }}
+      <dl class="facts">
+        {{- range . }}
+          <div class="fact">
+            <dt class="fact-label">{{ .label }}</dt>
+            <dd class="fact-value{{ if .accent }} is-accent{{ end }}">{{ .value }}</dd>
+          </div>
+        {{- end }}
+      </dl>
+    {{- end }}
+
+    {{ partial "social-links.html" . }}
+  </aside>
+</div>
+{{ end }}

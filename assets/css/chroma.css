@@ -1,0 +1,62 @@
+/* ---------------------------------------------------------------------------
+   Chroma syntax map.
+
+   The design uses four ink colours only — comment, keyword, string/literal and
+   plain — so every Chroma token class collapses into one of them. Colours come
+   from tokens.css, which means one build serves both themes.
+   --------------------------------------------------------------------------- */
+
+.chroma {
+  background: transparent;
+  color: var(--syn-plain);
+}
+
+/* Comments */
+.chroma :is(.c, .ch, .cm, .c1, .cs, .cp, .cpf) {
+  color: var(--syn-comment);
+  font-style: italic;
+}
+
+/* Keywords, types, tags, declarations */
+.chroma :is(.k, .kc, .kd, .kn, .kp, .kr, .kt, .nt, .bp) {
+  color: var(--syn-keyword);
+}
+
+/* Strings, numbers and other literals */
+.chroma :is(.s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss),
+.chroma :is(.m, .mb, .mf, .mh, .mi, .il, .mo) {
+  color: var(--syn-string);
+}
+
+/* Everything else reads as plain code */
+.chroma :is(.n, .na, .nb, .nc, .nd, .ni, .ne, .nf, .nl, .nn, .nx, .nv, .vc, .vg, .vi, .o, .ow, .p, .w) {
+  color: var(--syn-plain);
+}
+
+/* Names that carry structure lift to the primary text colour so signatures
+   and declarations stay findable when scanning. */
+.chroma :is(.nf, .nc) {
+  color: var(--text);
+}
+
+.chroma :is(.err, .gd) {
+  color: var(--syn-keyword);
+}
+
+.chroma .gi {
+  color: var(--syn-string);
+}
+
+.chroma :is(.ge) {
+  font-style: italic;
+}
+
+.chroma :is(.gs) {
+  font-weight: 500;
+}
+
+/* Line numbers, if ever enabled */
+.chroma :is(.lnt, .ln) {
+  color: var(--text-faint);
+  margin-right: 14px;
+}

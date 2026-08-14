@@ -1,0 +1,10 @@
+{{ define "main" }}
+<div class="tags-page">
+  <div>
+    <h1 class="page-title">#{{ lower .LinkTitle }}</h1>
+    <p class="page-dek">{{ len .Pages }} post{{ if ne (len .Pages) 1 }}s{{ end }} tagged {{ lower .LinkTitle }}.</p>
+  </div>
+
+  {{ partial "tag-index.html" (dict "page" . "selected" .RelPermalink) }}
+</div>
+{{ end }}

@@ -2,7 +2,7 @@
 title: "Building a Digital Garden"
 date: 2022-12-30
 lastmod: 2022-12-30
-draft: false
+draft: true
 tags: ["web", "tutorial"]
 math: true
 summary: "A tutorial to create a personal website with Hugo, hosted on Netlify."

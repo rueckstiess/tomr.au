@@ -1,0 +1,41 @@
+{{ define "main" }}
+{{- $posts := (where site.RegularPages "Section" "posts").ByDate.Reverse -}}
+
+<section class="home-top">
+  <div class="home-intro">
+    {{/* Each configured line is its own block on desktop and reflows inline on
+         narrow screens, where the designed line breaks no longer fit. */}}
+    <h1 class="home-hero">
+      {{- range site.Params.home.heroLines }}<span class="home-hero-line">{{ . }}</span> {{ end -}}
+      <span class="home-hero-line home-hero-dim">{{ site.Params.home.heroDim }}</span>
+    </h1>
+
+    {{- with site.Params.home.bio }}
+      <p class="home-bio">{{ . | markdownify }}</p>
+    {{- end }}
+
+    {{ partial "social-links.html" . }}
+  </div>
+</section>
+
+{{- with $posts }}
+<section class="archive" aria-labelledby="archive-heading">
+  <div class="section-head eyebrow">
+    <h2 id="archive-heading" class="eyebrow">Archive</h2>
+  </div>
+
+  {{- range . }}
+    <a class="archive-row row-bleed" href="{{ .RelPermalink }}">
+      <span class="archive-main">
+        <span class="archive-title">{{ .Title }}</span>
+        {{- with .Params.summary }}
+          <span class="archive-dek">{{ . | plainify }}</span>
+        {{- end }}
+      </span>
+      <span class="archive-tags">{{ delimit .Params.tags ", " }}</span>
+      <time class="archive-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+    </a>
+  {{- end }}
+</section>
+{{- end }}
+{{ end }}

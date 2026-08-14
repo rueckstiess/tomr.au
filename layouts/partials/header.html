@@ -1,0 +1,46 @@
+{{- /* Breadcrumb: "/ posts", "/ tags / ai", "/ posts / <slug>", or the name on home. */ -}}
+{{- $crumbs := slice -}}
+{{- if .IsHome -}}
+  {{- $crumbs = slice (site.Params.home.crumb | default site.Title) -}}
+{{- else -}}
+  {{- range .Ancestors.Reverse -}}
+    {{- if not .IsHome -}}
+      {{- $crumbs = $crumbs | append (path.Base .RelPermalink) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with path.Base .RelPermalink -}}
+    {{- if ne . "/" -}}
+      {{- $crumbs = $crumbs | append . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<header class="site-header">
+  <a class="brand" href="{{ "/" | relURL }}">
+    <span class="brand-dot" aria-hidden="true"></span>
+    <span class="brand-name">{{ site.Title }}</span>
+    {{- with $crumbs }}
+      <span class="brand-crumb">{{ range . }}/ {{ . }} {{ end }}</span>
+    {{- end }}
+  </a>
+
+  <div class="header-right">
+    <nav class="site-nav" aria-label="Primary">
+      {{- range site.Params.menu }}
+        {{- $active := false -}}
+        {{- if eq .url "/" -}}
+          {{- $active = $.IsHome -}}
+        {{- else -}}
+          {{- $active = hasPrefix $.RelPermalink .url -}}
+        {{- end }}
+        <a href="{{ .url | relURL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .name }}</a>
+      {{- end }}
+    </nav>
+
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+      <span class="visually-hidden">Switch between dark and light theme. Current theme:</span>
+      <span data-theme-label>dark</span>
+      <span class="theme-toggle-dot" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,35 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+{{/* Set the theme before first paint so there is no flash of the wrong palette. */}}
+<script>
+  (function () {
+    var fallback = {{ site.Params.defaultTheme | default "dark" }};
+    var theme = fallback;
+    try {
+      var stored = localStorage.getItem('tomrau-theme');
+      if (stored === 'light' || stored === 'dark') {
+        theme = stored;
+      } else if (window.matchMedia) {
+        if (window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) theme = 'dark';
+      }
+    } catch (e) { /* private mode — fall through to the default */ }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
+
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Params.summary }}{{ . | plainify }}{{ else }}{{ site.Params.description }}{{ end }}{{ end }}">
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{ with .OutputFormats.Get "rss" -}}
+  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+
+{{ template "_internal/opengraph.html" . }}
+
+{{ partialCached "css.html" . }}
+
+{{ if hugo.IsProduction }}{{ template "_internal/google_analytics.html" . }}{{ end }}

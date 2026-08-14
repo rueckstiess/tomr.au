@@ -1,0 +1,478 @@
+/* ---------------------------------------------------------------------------
+   Home / posts / tags / about / 404
+   --------------------------------------------------------------------------- */
+
+/* === Home =================================================================== */
+
+.home-top {
+  padding: 52px var(--gutter) 48px;
+}
+
+.home-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home-hero {
+  font-size: 54px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+
+.home-hero-line {
+  display: block;
+}
+
+.home-hero-dim {
+  color: var(--text-dim);
+}
+
+.home-bio {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-muted);
+  max-width: 52ch;
+}
+
+/* --- Archive --------------------------------------------------------------- */
+
+.archive {
+  padding: 0 var(--gutter) 60px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+/* Every entry is weighted the same — no promoted row, no index column. */
+.archive-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px 100px;
+  gap: 20px 24px;
+  /* Baseline, not center: tags and date sit on the title's first line while the
+     description runs on below it. */
+  align-items: baseline;
+  padding: 22px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.archive-row:last-child {
+  border-bottom: none;
+}
+
+.archive-row:hover {
+  background: var(--hover);
+}
+
+.archive-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.archive-title {
+  font-size: 19px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.archive-row:hover .archive-title {
+  color: var(--accent);
+}
+
+.archive-dek {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 62ch;
+}
+
+.archive-tags,
+.archive-date {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.archive-date {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* === Posts list ============================================================= */
+
+.posts-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 68px var(--gutter) 0;
+}
+
+.posts-head .page-dek {
+  max-width: 46ch;
+  margin-top: 16px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+.chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.posts-list {
+  padding: 30px var(--gutter) 60px;
+}
+
+.post-row {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr) 150px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.post-row:hover {
+  background: var(--hover);
+}
+
+.post-row-date {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.post-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.post-row-title {
+  font-size: 22px;
+  line-height: 1.25;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.post-row:hover .post-row-title {
+  color: var(--accent);
+}
+
+.post-row-dek {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.post-row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-meta);
+}
+
+.posts-empty {
+  padding: 32px 12px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+/* === Tags =================================================================== */
+
+.tags-page {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  padding: 68px var(--gutter) 64px;
+}
+
+.tag-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.tag-card {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.tag-card:hover {
+  border-color: var(--text-faint);
+}
+
+.tag-card-name {
+  font-size: 17px;
+  letter-spacing: -0.02em;
+}
+
+.tag-card-count {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.tag-card.is-featured {
+  background: var(--surface);
+}
+
+.tag-card.is-featured .tag-card-count {
+  color: var(--accent);
+}
+
+.tag-card.is-featured:hover {
+  border-color: var(--accent);
+}
+
+.tag-posts {
+  display: flex;
+  flex-direction: column;
+}
+
+.tag-post-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 15px;
+  color: var(--text-body);
+}
+
+.tag-post-row:last-child {
+  border-bottom: none;
+}
+
+.tag-post-row:hover {
+  color: var(--accent);
+}
+
+.tag-post-date {
+  flex: none;
+  font-size: 12px;
+  color: var(--text-meta);
+  font-variant-numeric: tabular-nums;
+}
+
+/* === About ================================================================== */
+
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 56px;
+  align-items: start;
+  padding: 68px var(--gutter) 64px;
+}
+
+.about-main {
+  max-width: var(--measure);
+}
+
+.about-main .prose {
+  margin-top: 28px;
+}
+
+.about-main .prose > * + * {
+  margin-top: 22px;
+}
+
+.about-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-portrait {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.facts {
+  font-size: 12px;
+}
+
+.fact {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.fact:last-child {
+  border-bottom: none;
+}
+
+.fact-label {
+  color: var(--text-dim);
+}
+
+.fact-value {
+  color: var(--text);
+  text-align: right;
+}
+
+.fact-value.is-accent {
+  color: var(--accent);
+}
+
+/* === 404 ==================================================================== */
+
+.notfound {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 120px var(--gutter);
+  max-width: var(--measure);
+}
+
+.notfound-code {
+  color: var(--accent);
+}
+
+/* === Responsive ============================================================= */
+
+@media (max-width: 1023px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .home-top {
+    padding-top: 40px;
+  }
+
+  .about-rail {
+    max-width: 420px;
+  }
+
+  .tag-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .archive-row {
+    grid-template-columns: minmax(0, 1fr) 140px 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-hero {
+    font-size: 34px;
+  }
+
+  .home-hero-line {
+    display: inline;
+  }
+
+  .home-top {
+    padding-top: 30px;
+  }
+
+  .posts-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding-top: 44px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  /* Title and description span the row; tags and date share the line below. */
+  .archive-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 12px;
+  }
+
+  .archive-main {
+    grid-column: 1 / -1;
+  }
+
+  .archive-tags {
+    grid-column: 1;
+  }
+
+  .archive-date {
+    grid-column: 2;
+  }
+
+  .archive-tags,
+  .archive-date {
+    font-size: 11px;
+  }
+
+  .archive-title {
+    font-size: 17px;
+  }
+
+  /* Post rows stack: date above title, meta below. */
+  .post-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .post-row-title {
+    font-size: 19px;
+  }
+
+  .post-row-meta {
+    flex-direction: row;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .tag-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-portrait {
+    height: 300px;
+  }
+
+  .notfound {
+    padding-block: 72px;
+  }
+}

@@ -1,0 +1,61 @@
+{{- /* Renders the tag card grid plus one tag's posts expanded beneath it.
+
+       ctx:
+         page     — the current page
+         selected — RelPermalink of the term to expand; empty expands the
+                    most-used tag.
+
+       Terms are matched on RelPermalink rather than the taxonomy key, because
+       the key keeps the original spacing ("creative writing") while the URL
+       segment is urlized ("creative-writing").
+    */ -}}
+
+{{- $terms := slice -}}
+{{- range $key, $taxonomy := site.Taxonomies.tags -}}
+  {{- $term := site.GetPage (printf "/tags/%s" $key) -}}
+  {{- with $term -}}
+    {{- $count := len $taxonomy -}}
+    {{- /* One sort key gives count descending, then name ascending. */ -}}
+    {{- $terms = $terms | append (dict
+          "url" .RelPermalink
+          "name" (lower .LinkTitle)
+          "count" $count
+          "page" .
+          "sortKey" (printf "%04d-%s" (sub 9999 $count) $key)) -}}
+  {{- end -}}
+{{- end -}}
+{{- $terms = sort $terms "sortKey" "asc" -}}
+
+{{- $selected := .selected -}}
+{{- if and (not $selected) (gt (len $terms) 0) -}}
+  {{- $selected = (index $terms 0).url -}}
+{{- end -}}
+
+<div class="tag-grid">
+  {{- range $t := $terms }}
+    <a class="tag-card{{ if eq $t.url $selected }} is-featured{{ end }}" href="{{ $t.url }}"
+      {{- if eq $t.url $selected }} aria-current="page"{{ end }}>
+      <span class="tag-card-name">#{{ $t.name }}</span>
+      <span class="tag-card-count">{{ $t.count }}</span>
+    </a>
+  {{- end }}
+</div>
+
+{{- range $t := $terms }}
+  {{- if eq $t.url $selected }}
+    <section>
+      <div class="section-head eyebrow">
+        <h2 class="eyebrow">#{{ $t.name }} — {{ $t.count }} post{{ if ne $t.count 1 }}s{{ end }}</h2>
+      </div>
+
+      <div class="tag-posts">
+        {{- range $t.page.Pages.ByDate.Reverse }}
+          <a class="tag-post-row row-bleed" href="{{ .RelPermalink }}">
+            <span>{{ .Title }}</span>
+            <time class="tag-post-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
+          </a>
+        {{- end }}
+      </div>
+    </section>
+  {{- end }}
+{{- end }}

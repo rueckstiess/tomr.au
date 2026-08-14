@@ -1,30 +1,48 @@
 {{ define "main" }}
+{{- $pages := .Pages.ByDate.Reverse -}}
 
-<div class="list-container">
+<header class="posts-head">
+  <div>
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{- $dek := .Description | default (index (or site.Params.posts dict) "dek") }}
+    {{- with $dek }}
+      <p class="page-dek">{{ . | markdownify }}</p>
+    {{- end }}
+  </div>
 
-  {{ partial "breadcrumbs.html" . }}
+  {{- with site.Taxonomies.tags.ByCount }}
+    {{/* Hidden until posts-filter.js takes over, so no-JS visitors are not
+         offered controls that do nothing. */}}
+    <div class="chips" data-post-filter hidden>
+      <button class="chip is-active" type="button" data-filter-tag="all" aria-pressed="true">all</button>
+      {{- range . }}
+        <button class="chip" type="button" data-filter-tag="{{ path.Base .Page.RelPermalink }}" aria-pressed="false">{{ lower .Page.LinkTitle }}</button>
+      {{- end }}
+    </div>
+  {{- end }}
+</header>
 
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
+<div class="posts-list" data-post-list>
+  {{- range $pages }}
+    {{- $slugs := slice }}
+    {{- range .Params.tags }}{{ $slugs = $slugs | append (urlize .) }}{{ end }}
+    <a class="post-row row-bleed" href="{{ .RelPermalink }}" data-tags="{{ delimit $slugs "|" }}">
+      <time class="post-row-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ lower (.Date.Format "02 Jan 2006") }}</time>
 
-  {{ $tagsPage := eq .Title "Tags"}}
+      <span class="post-row-main">
+        <span class="post-row-title">{{ .Title }}</span>
+        {{- with .Params.summary }}
+          <span class="post-row-dek">{{ . | plainify }}</span>
+        {{- end }}
+      </span>
 
-  {{ if $tagsPage }}
-  {{ partial "tags-layout.html" . }}
-  {{ else }}
-  {{ $paginationSize := 1}}
-  {{ if (gt .Site.Params.paginationSize 0) }}
-  {{ $paginationSize = .Site.Params.paginationSize }}
-  {{ end }}
+      <span class="post-row-meta">
+        <span>{{ delimit .Params.tags ", " }}</span>
+        <span>{{ .ReadingTime }} min read</span>
+      </span>
+    </a>
+  {{- end }}
 
-  {{ $paginator := .Paginate (.Pages) $paginationSize }}
-
-  {{ range $index, $page := $paginator.Pages }}
-  {{ partial "post-entry.html" $page}}
-  {{ end }}
-
-  {{ partial "pagination-controls.html" $paginator}}
-  {{ end }}
-
+  <p class="posts-empty" data-post-empty hidden>Nothing under that tag yet.</p>
 </div>
 {{ end }}

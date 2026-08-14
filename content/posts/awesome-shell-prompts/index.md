@@ -10,7 +10,7 @@ hidePagination: true
 summary: "Creating awesome looking shell prompts for the MacOS Terminal."
 ---
 
-![Prompt Example](./prompt-final.png#large)
+![Prompt Example](./prompt-final.png)
 
 You've probably seen these awesome customised prompts in YouTube videos or coding tutorials online and wondered how to do this. I have! I finally had some time to look into them and it's actually not hard to configure one for your own terminal. Below are the instructions that worked for me using MacOS Sonoma with the [iTerm 2](https://iterm2.com) terminal app. 
 

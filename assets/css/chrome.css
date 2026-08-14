@@ -1,0 +1,151 @@
+/* ---------------------------------------------------------------------------
+   Header, nav, theme toggle, footer
+   --------------------------------------------------------------------------- */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px var(--gutter);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+/* --- Brand + breadcrumb ---------------------------------------------------- */
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.brand-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.brand-name {
+  color: var(--text);
+}
+
+.brand-crumb {
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Nav ------------------------------------------------------------------- */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-nav a {
+  color: var(--text-dim);
+}
+
+.site-nav a:hover {
+  color: var(--text);
+}
+
+.site-nav a[aria-current='page'] {
+  color: var(--text);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* --- Theme toggle ---------------------------------------------------------- */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 9px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+.theme-toggle:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+}
+
+.theme-toggle-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--text);
+  transition: background var(--t);
+}
+
+/* --- Footer ---------------------------------------------------------------- */
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px var(--gutter);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+/* --- Responsive chrome ----------------------------------------------------- */
+
+@media (max-width: 767px) {
+  .site-header {
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 16px var(--gutter);
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .site-nav {
+    gap: 18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .theme-toggle {
+    min-height: 44px;
+    padding: 4px 12px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

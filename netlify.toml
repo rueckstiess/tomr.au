@@ -1,0 +1,10 @@
+# Pins the build so template lookup behaves the same locally and on deploy.
+# Hugo's layout lookup rules changed in 0.146; this site's taxonomy templates
+# depend on the post-0.146 behaviour, so the version is not safe to float.
+
+[build]
+  publish = "public"
+  command = "hugo --gc"
+
+[build.environment]
+  HUGO_VERSION = "0.154.3"

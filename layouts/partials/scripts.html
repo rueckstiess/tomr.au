@@ -1,0 +1,28 @@
+{{- /* One bundle for every page. Each script no-ops when the element it hooks
+       is absent, and the total is small enough that splitting per page type is
+       not worth it — resources.Concat is keyed by target path, so per-page
+       variants would collide on a single cached /js/bundle.js. */ -}}
+{{- $js := slice
+  (resources.Get "js/theme-toggle.js")
+  (resources.Get "js/copy-code.js")
+  (resources.Get "js/toc.js")
+  (resources.Get "js/posts-filter.js")
+-}}
+
+{{- $bundle := $js | resources.Concat "js/bundle.js" -}}
+{{- if hugo.IsProduction -}}
+  {{- $bundle = $bundle | minify | fingerprint -}}
+{{- end -}}
+
+<script defer src="{{ $bundle.RelPermalink }}"></script>
+
+{{- if .Store.Get "hasMermaid" }}
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: document.documentElement.getAttribute('data-theme') === 'light' ? 'default' : 'dark' });
+</script>
+{{- end }}
+
+{{- if .Param "math" }}
+{{ partial "math.html" . }}
+{{- end }}

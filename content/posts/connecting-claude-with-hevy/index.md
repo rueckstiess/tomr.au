@@ -1,15 +1,13 @@
 ---
-title: "Making Claude your personal trainer"
+title: "Say hi to Claude, your new PT"
 summary: "A guide to connecting your Hevy workout history to Claude with an API key and the hevy-mcp connector."
-date: 2026-08-12
-draft: true
+date: 2026-08-14
+draft: false
 tags: ["ai", "fitness", "tutorial"]
-toc: false
+toc: true
 showTags: true
 hidePagination: true
 ---
-
-Want Claude to be your personal trainer, monitor your gym progress and make programs for you? 
 
 In this guide, we'll connect the [Hevy workout tracker](https://www.hevyapp.com/) to [Claude](https://claude.ai/). Once it is set up, you can ask questions such as:
 
@@ -40,7 +38,7 @@ Before you begin, make sure you have:
 
 ## 1. Find the Hevy MCP server address
 
-We're going to use this open source [`hevy-mcp`](https://github.com/chrisdoc/hevy-mcp) project. On this page, we can find the MCP server address under the **Claude integration** section, which is: 
+We're going to use this open source [hevy-mcp](https://github.com/chrisdoc/hevy-mcp) project. On this page, we can find the MCP server address under the **Claude integration** section, which is: 
 
 ```text
 https://mcp.hevy-mcp.dev/mcp
@@ -113,7 +111,7 @@ Once the basic connection works, try questions that compare more of your history
 - “Give me a training summary for the last four weeks.”
 - “Compare my last three leg workouts. Am I adding weight or reps?”
 - “Which exercises have I trained most consistently this month?”
-- “Find my recent squat sessions and summarise my progress.”
+- “Design a new 4-day split program for me based on my last 12 weeks of training. Include exercises, sets, reps and rest periods.”
 
 
 ## Troubleshooting

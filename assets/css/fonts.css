@@ -1,5 +1,5 @@
 /* JetBrains Mono — self-hosted, SIL Open Font License 1.1.
-   Only the two weights the design uses are shipped. */
+   400 for body, 500 for headings and UI, 700 for `strong`. */
 
 @font-face {
   font-family: 'JetBrains Mono';
@@ -29,6 +29,22 @@
   font-family: 'JetBrains Mono';
   src: url('/fonts/JetBrainsMono/JetBrainsMono-MediumItalic.woff2') format('woff2');
   font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono/JetBrainsMono-BoldItalic.woff2') format('woff2');
+  font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
